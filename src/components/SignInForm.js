@@ -46,13 +46,7 @@ const SignInForm = props => (
 )
 
 const mapStateToProps = state => {
-  const {
-    values: {
-      email = '',
-      password = ''
-    },
-    errorMessage
-  } = state.signInForm
+  const { values: { email, password }, errorMessage } = state.signInForm
 
   return { email, password, errorMessage }
 }
