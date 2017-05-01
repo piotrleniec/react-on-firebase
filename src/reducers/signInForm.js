@@ -4,7 +4,10 @@ import {
 } from '../actionTypes'
 
 const initialState = {
-  values: {},
+  values: {
+    email: '',
+    password: ''
+  },
   errorMessage: null
 }
 
