@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { updateSignUpForm } from '../actions/signUpForm'
+import { updateSignUpForm, signUp } from '../actions/signUpForm'
 
 const SignUpForm = props => (
   <div>
@@ -18,7 +18,7 @@ const SignUpForm = props => (
       onChange={props.setPassword}
     />
 
-    <button>Sign Up</button>
+    <button onClick={props.signUp}>Sign Up</button>
   </div>
 )
 
@@ -30,7 +30,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   setEmail: ({ target }) => { dispatch(updateSignUpForm({ email: target.value })) },
-  setPassword: ({ target }) => { dispatch(updateSignUpForm({ password: target.value })) }
+  setPassword: ({ target }) => { dispatch(updateSignUpForm({ password: target.value })) },
+  signUp: () => { dispatch(signUp()) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm)
