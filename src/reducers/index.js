@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
+import signUpForm from './signUpForm'
 
 export default combineReducers({
-  null: () => null
+  signUpForm
 })
