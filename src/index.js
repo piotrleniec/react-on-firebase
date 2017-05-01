@@ -5,6 +5,7 @@ import initializeFirebase from './firebase'
 import DevTools from './components/DevTools'
 import store from './store'
 import App from './components/App'
+import 'bootstrap/dist/css/bootstrap.css'
 import './index.css'
 
 initializeFirebase()
