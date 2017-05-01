@@ -4,6 +4,11 @@ import { updateSignUpForm, signUp } from '../actions/signUpForm'
 
 const SignUpForm = props => (
   <div className="panel panel-primary">
+    <div className="panel-heading">
+      <h3 className="panel-title">
+        Sign Up
+      </h3>
+    </div>
     <div className="panel-body">
       <div className="form-group">
         <input
