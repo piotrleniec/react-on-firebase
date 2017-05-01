@@ -2,6 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { updateSignInForm, signIn } from '../actions/signInForm'
 
+const Alert = ({ errorMessage }) => (
+  <div className="alert alert-danger">
+    {errorMessage}
+  </div>
+)
+
 const SignInForm = props => (
   <div className="panel panel-primary">
     <div className="panel-heading">
@@ -10,6 +16,8 @@ const SignInForm = props => (
       </h3>
     </div>
     <div className="panel-body">
+      {props.errorMessage && <Alert errorMessage={props.errorMessage} />}
+
       <div className="form-group">
         <input
           type="email"
@@ -38,9 +46,15 @@ const SignInForm = props => (
 )
 
 const mapStateToProps = state => {
-  const { email = '', password = '' } = state.signInForm.values
+  const {
+    values: {
+      email = '',
+      password = ''
+    },
+    errorMessage
+  } = state.signInForm
 
-  return { email, password }
+  return { email, password, errorMessage }
 }
 
 const mapDispatchToProps = dispatch => ({
