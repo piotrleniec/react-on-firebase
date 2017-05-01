@@ -1,4 +1,8 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import DevTools from './components/DevTools'
 import reducers from './reducers'
 
-export default createStore(reducers)
+export default createStore(
+  reducers,
+  compose(applyMiddleware(), DevTools.instrument())
+)
