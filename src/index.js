@@ -1,14 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import firebase from 'firebase'
-import firebaseConfig from './firebaseConfig'
+import initializeFirebase from './firebase'
 import DevTools from './components/DevTools'
 import store from './store'
 import App from './components/App'
 import './index.css'
 
-firebase.initializeApp(firebaseConfig)
+initializeFirebase()
 
 ReactDOM.render(
   <Provider store={store}>
