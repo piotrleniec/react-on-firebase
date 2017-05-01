@@ -1,28 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import SignUpForm from './SignUpForm'
 import SignOutButton from './SignOutButton'
 import SignInForm from './SignInForm'
-import logo from './logo.svg'
-import './App.css'
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+const App = props => {
+  if (props.currentUser) return <SignOutButton />
 
-        <SignUpForm />
-        <SignOutButton />
-        <SignInForm />
-      </div>
-    )
-  }
+  return (
+    <div>
+      <SignUpForm />
+      <SignInForm />
+    </div>
+  )
 }
 
-export default App
+const mapStateToProps = state => ({
+  currentUser: state.currentUser
+})
+
+export default connect(mapStateToProps)(App)
