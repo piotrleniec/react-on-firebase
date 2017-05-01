@@ -3,22 +3,32 @@ import { connect } from 'react-redux'
 import { updateSignUpForm, signUp } from '../actions/signUpForm'
 
 const SignUpForm = props => (
-  <div>
-    <input
-      type="email"
-      placeholder="email"
-      value={props.email}
-      onChange={props.setEmail}
-    />
+  <div className="panel panel-primary">
+    <div className="panel-body">
+      <div className="form-group">
+        <input
+          type="email"
+          placeholder="email"
+          className="form-control"
+          value={props.email}
+          onChange={props.setEmail}
+        />
+      </div>
 
-    <input
-      type="password"
-      placeholder="password"
-      value={props.password}
-      onChange={props.setPassword}
-    />
+      <div className="form-group">
+        <input
+          type="password"
+          placeholder="password"
+          className="form-control"
+          value={props.password}
+          onChange={props.setPassword}
+        />
+      </div>
 
-    <button onClick={props.signUp}>Sign Up</button>
+      <button className="btn btn-primary pull-left" onClick={props.signUp}>
+        Sign Up
+      </button>
+    </div>
   </div>
 )
 
