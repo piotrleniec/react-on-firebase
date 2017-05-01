@@ -1,5 +1,6 @@
 import React from 'react'
 import SignUpForm from './SignUpForm'
+import SignOutButton from './SignOutButton'
 import logo from './logo.svg'
 import './App.css'
 
@@ -16,6 +17,7 @@ class App extends React.Component {
         </p>
 
         <SignUpForm />
+        <SignOutButton />
       </div>
     )
   }

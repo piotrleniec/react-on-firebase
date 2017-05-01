@@ -4,8 +4,8 @@ import { setCurrentUser } from '../actions/currentUser'
 
 export default () => {
   firebase.auth().onAuthStateChanged(user => {
-    store.dispatch(setCurrentUser({
-      email: user.email
-    }))
+    store.dispatch(setCurrentUser(
+      user ? { email: user.email } : null
+    ))
   })
 }
