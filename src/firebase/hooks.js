@@ -8,4 +8,17 @@ export default () => {
       user ? { email: user.email } : null
     ))
   })
+
+  firebase.database().ref('notes').on('value', notesSnapshot => {
+    const notesObject = notesSnapshot.val()
+
+    if (notesObject) {
+      const notes = Object.keys(notesObject).map(noteId => ({
+        id: noteId,
+        ...notesObject[noteId]
+      }))
+
+      console.log(notes) // eslint-disable-line
+    }
+  })
 }
