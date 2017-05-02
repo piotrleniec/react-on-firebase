@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import store from '../store'
 import { setCurrentUser } from '../actions/currentUser'
+import { setNotes } from '../actions/notes'
 
 export default () => {
   firebase.auth().onAuthStateChanged(user => {
@@ -18,7 +19,7 @@ export default () => {
         ...notesObject[noteId]
       }))
 
-      console.log(notes) // eslint-disable-line
+      store.dispatch(setNotes(notes))
     }
   })
 }
