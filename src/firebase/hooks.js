@@ -13,13 +13,16 @@ export default () => {
   firebase.database().ref('notes').on('value', notesSnapshot => {
     const notesObject = notesSnapshot.val()
 
-    if (notesObject) {
-      const notes = Object.keys(notesObject).map(noteId => ({
-        id: noteId,
-        ...notesObject[noteId]
-      }))
-
-      store.dispatch(setNotes(notes))
+    if (!notesObject) {
+      store.dispatch(setNotes([]))
+      return
     }
+
+    const notes = Object.keys(notesObject).map(noteId => ({
+      id: noteId,
+      ...notesObject[noteId]
+    }))
+
+    store.dispatch(setNotes(notes))
   })
 }
