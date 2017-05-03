@@ -1,38 +1,25 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import {
-  updateCreateNoteForm,
-  submitCreateNoteForm
-} from '../../actions/createNoteForm'
+import { Field, reduxForm, reset } from 'redux-form'
+import { createNote } from '../../firebase/database/notes'
 
 const CreateNoteForm = props => (
-  <div className="input-group">
-    <span className="input-group-btn">
-      <button
-        className="btn btn-primary"
-        onClick={props.submitCreateNoteForm}
-      >
-        Create
-      </button>
-    </span>
+  <form onSubmit={props.handleSubmit}>
+    <div className="input-group">
+      <span className="input-group-btn">
+        <button type="submit" className="btn btn-primary">
+          Create
+        </button>
+      </span>
 
-    <input
-      className="form-control"
-      value={props.title}
-      onChange={props.setTitle}
-    />
-  </div>
+      <Field name="title" component="input" className="form-control" />
+    </div>
+  </form>
 )
 
-const mapStateToProps = state => {
-  const { title } = state.createNoteForm.values
-
-  return { title }
-}
-
-const mapDispatchToProps = dispatch => ({
-  setTitle: ({ target }) => { dispatch(updateCreateNoteForm({ title: target.value })) },
-  submitCreateNoteForm: () => { dispatch(submitCreateNoteForm()) }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNoteForm)
+export default reduxForm({
+  form: 'createNoteForm',
+  onSubmit: (values, dispatch) => {
+    createNote(values.title, '')
+    dispatch(reset('createNoteForm'))
+  }
+})(CreateNoteForm)
