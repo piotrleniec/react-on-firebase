@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createNote } from '../../firebase/database/notes'
 import Note from './Note'
+import CreateNoteForm from './CreateNoteForm'
 
 const Notes = props => (
   <div>
@@ -14,6 +15,12 @@ const Notes = props => (
     </div>
 
     <button onClick={() => { createNote('a', 'b') }}>Add Note</button>
+
+    <div className="row">
+      <div className="col-xs-offset-1 col-xs-10">
+        <CreateNoteForm />
+      </div>
+    </div>
   </div>
 )
 
