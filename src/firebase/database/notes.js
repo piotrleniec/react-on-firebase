@@ -5,3 +5,7 @@ export const createNote = (title, text) => {
     title, text
   })
 }
+
+export const destroyNote = noteId => {
+  firebase.database().ref(`notes/${noteId}`).remove()
+}
