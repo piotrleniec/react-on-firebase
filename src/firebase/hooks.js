@@ -3,13 +3,7 @@ import store from '../store'
 import { setCurrentUser } from '../actions/currentUser'
 import { setNotes } from '../actions/notes'
 
-export default () => {
-  firebase.auth().onAuthStateChanged(user => {
-    store.dispatch(setCurrentUser(
-      user ? { email: user.email } : null
-    ))
-  })
-
+const notesHook = () => {
   firebase.database().ref('notes').on('value', notesSnapshot => {
     const notesObject = notesSnapshot.val()
 
@@ -24,5 +18,15 @@ export default () => {
     }))
 
     store.dispatch(setNotes(notes))
+  })
+}
+
+export default () => {
+  firebase.auth().onAuthStateChanged(user => {
+    store.dispatch(setCurrentUser(
+      user ? { email: user.email } : null
+    ))
+
+    notesHook()
   })
 }
