@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { destroyNote } from '../../firebase/database/notes'
+import { destroyNote, updateNote } from '../../firebase/database/notes'
 
 let Note = props => (
   <div className="panel panel-primary">
@@ -24,7 +24,13 @@ let Note = props => (
   </div>
 )
 
-Note = reduxForm()(Note)
+Note = reduxForm({
+  asyncBlurFields: ['text'],
+  asyncValidate: values => new Promise(resolve => {
+    updateNote(values.id, values.text)
+    resolve()
+  })
+})(Note)
 
 const mapStateToProps = (state, ownProps) => {
   const note = state.notes.find(note => note.id === ownProps.noteId)
