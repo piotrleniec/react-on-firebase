@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { destroyNote } from '../../firebase/database/notes'
 
 const Note = props => (
@@ -20,4 +21,8 @@ const Note = props => (
   </div>
 )
 
-export default Note
+const mapStateToProps = (state, ownProps) => ({
+  note: state.notes.find(note => note.id === ownProps.noteId)
+})
+
+export default connect(mapStateToProps)(Note)

@@ -9,7 +9,7 @@ const Notes = props => (
     <div className="row">
       {props.notes.map(note => (
         <div className="col-xs-4" key={note.id}>
-          <Note note={note} />
+          <Note noteId={note.id} />
         </div>
       ))}
     </div>
