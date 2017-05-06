@@ -3,22 +3,29 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { destroyNote, updateNote } from '../../firebase/database/notes'
 
-let Note = props => (
+const RemoveNoteButton = ({ noteId }) => (
+  <span className="pull-right" onClick={() => { destroyNote(noteId) }}>
+    &times;
+  </span>
+)
+
+let Note = ({ note, authorizedToUpdate, handleSubmit }) => (
   <div className="panel panel-primary">
     <div className="panel-heading">
       <h3 className="panel-title">
-        {props.note.title}
-        <span
-          className="pull-right"
-          onClick={() => { destroyNote(props.note.id) }}
-        >
-          &times;
-        </span>
+        {note.title}
+
+        {authorizedToUpdate && <RemoveNoteButton noteId={note.id} />}
       </h3>
     </div>
     <div className="panel-body">
-      <form onSubmit={props.handleSubmit}>
-        <Field name="text" component="textarea" className="form-control" />
+      <form onSubmit={handleSubmit}>
+        <Field
+          name="text"
+          component="textarea"
+          className="form-control"
+          readOnly={!authorizedToUpdate}
+        />
       </form>
     </div>
   </div>
@@ -26,22 +33,29 @@ let Note = props => (
 
 Note = reduxForm({
   asyncBlurFields: ['text'],
-  asyncValidate: values => new Promise(resolve => {
-    updateNote(values.id, values.text)
-    resolve()
-  })
+  asyncValidate: values => {
+    if (!values.authorizedToUpdate) return Promise.resolve()
+
+    return new Promise(resolve => {
+      updateNote(values.id, values.text)
+      resolve()
+    })
+  }
 })(Note)
 
 const mapStateToProps = (state, ownProps) => {
   const note = state.notes.find(note => note.id === ownProps.noteId)
+  const authorizedToUpdate = state.currentUser.id === note.userId
 
   return {
     form: `updateNoteForm[${ownProps.noteId}]`,
     initialValues: {
       id: note.id,
-      text: note.text
+      text: note.text,
+      authorizedToUpdate
     },
-    note
+    note,
+    authorizedToUpdate
   }
 }
 
