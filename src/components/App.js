@@ -15,11 +15,11 @@ const Anonymous = () => (
   </div>
 )
 
-const Authenticated = props => (
+const Authenticated = ({ currentUser: { email, photoURL } }) => (
   <div>
     <div className="row">
       <div className="col-xs-12">
-        Signed as {props.currentUser.email}
+        {photoURL && <img src={photoURL} />} {email}
         <div className="pull-right">
           <SignOutButton />
         </div>
@@ -32,10 +32,8 @@ const Authenticated = props => (
   </div>
 )
 
-const App = props => (
-  props.currentUser ?
-    <Authenticated currentUser={props.currentUser} /> :
-    <Anonymous />
+const App = ({ currentUser }) => (
+  currentUser ? <Authenticated currentUser={currentUser} /> : <Anonymous />
 )
 
 const mapStateToProps = state => ({
