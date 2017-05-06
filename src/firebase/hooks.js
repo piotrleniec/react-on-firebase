@@ -24,7 +24,7 @@ const notesHook = () => {
 export default () => {
   firebase.auth().onAuthStateChanged(user => {
     store.dispatch(setCurrentUser(
-      user ? { email: user.email } : null
+      user ? { id: user.uid, email: user.email } : null
     ))
 
     notesHook()

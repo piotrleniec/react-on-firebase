@@ -1,8 +1,8 @@
 import firebase from 'firebase'
 
-export const createNote = (title, text) => {
+export const createNote = (userId, title, text) => {
   firebase.database().ref('notes').push().set({
-    title, text
+    userId, title, text
   })
 }
 

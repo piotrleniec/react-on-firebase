@@ -1,8 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Field, reduxForm, reset } from 'redux-form'
 import { createNote } from '../../firebase/database/notes'
 
-const CreateNoteForm = props => (
+let CreateNoteForm = props => (
   <form onSubmit={props.handleSubmit}>
     <div className="input-group">
       <span className="input-group-btn">
@@ -16,10 +17,18 @@ const CreateNoteForm = props => (
   </form>
 )
 
-export default reduxForm({
+CreateNoteForm = reduxForm({
   form: 'createNoteForm',
   onSubmit: (values, dispatch) => {
-    createNote(values.title, '')
+    createNote(values.userId, values.title, '')
     dispatch(reset('createNoteForm'))
   }
 })(CreateNoteForm)
+
+const mapStateToProps = state => ({
+  initialValues: {
+    userId: state.currentUser.id
+  }
+})
+
+export default connect(mapStateToProps)(CreateNoteForm)
