@@ -4,6 +4,7 @@ import SignUpForm from './SignUpForm'
 import SignOutButton from './SignOutButton'
 import SignInForm from './SignInForm'
 import Notes from './Notes'
+import UploadProfilePictureButton from './UploadProfilePictureButton'
 
 const Anonymous = () => (
   <div className="row">
@@ -26,6 +27,8 @@ const Authenticated = props => (
     </div>
 
     <Notes />
+
+    <UploadProfilePictureButton />
   </div>
 )
 
