@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 import store from '../store'
-import { setCurrentUser } from '../actions/currentUser'
+import { synchronizeCurrentUser } from '../actions/currentUser'
 import { setNotes } from '../actions/notes'
 
 const notesHook = () => {
@@ -22,10 +22,8 @@ const notesHook = () => {
 }
 
 export default () => {
-  firebase.auth().onAuthStateChanged(user => {
-    store.dispatch(setCurrentUser(
-      user ? { id: user.uid, email: user.email } : null
-    ))
+  firebase.auth().onAuthStateChanged(() => {
+    store.dispatch(synchronizeCurrentUser())
 
     notesHook()
   })
