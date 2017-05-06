@@ -20,16 +20,18 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-module.hot.accept('./components/App', () => {
-  const NextApp = require('./components/App').default
+if (module.hot) {
+  module.hot.accept('./components/App', () => {
+    const NextApp = require('./components/App').default
 
-  ReactDOM.render(
-    <Provider store={store}>
-      <div>
-        <DevTools />
-        <NextApp />
-      </div>
-    </Provider>,
-    document.getElementById('root')
-  )
-})
+    ReactDOM.render(
+      <Provider store={store}>
+        <div>
+          <DevTools />
+          <NextApp />
+        </div>
+      </Provider>,
+      document.getElementById('root')
+    )
+  })
+}
